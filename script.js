@@ -1,6 +1,10 @@
 // date format: Monday, August 12th 2021
 // time format: 03:30:09
 
+let testOutput = function(name, out) {
+    console.log(`${name}: ${out}`);
+}
+
 let weekdayList = {
     '1': 'Monday',
     '2': 'Tuesday',
@@ -26,20 +30,28 @@ let monthList = {
     '12': 'December'
 }
 
+
 let today = new Date();
 
+// Get Date
 let day = today.getDay();
-let month = today.getMonth();
+let monthDay = today.getDate();
+let month = today.getMonth() + 1;
 let year = today.getFullYear();
 
-let hour = today.getHours();
+// Display Date
+document.getElementById('date').innerHTML = `
+    ${weekdayList[day]}, ${monthList[month]} ${monthDay} ${year}`;
+
+
+// Get Time
+let hour = String(today.getHours() ).padStart(2, '0');
 let minute = today.getMinutes();
 let second = today.getSeconds();
 
-
-// Display Date
-document.getElementById('date').innerHTML = `${weekdayList[day]}, ${monthList[month]} ${day} ${year}`;
-
 // Display Time
 document.getElementById('time').innerHTML = `${hour}:${minute}:${second}`;
+
+// TEST
+testOutput('what the hell', day);
 
