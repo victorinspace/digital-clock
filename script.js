@@ -1,3 +1,7 @@
+// Work Items
+// - Include nd, rd, and th in date
+
+
 // date format: Monday, August 12th 2021
 // time format: 03:30:09
 
@@ -33,6 +37,7 @@ let monthList = {
 
 let today = new Date();
 
+
 // Get Date
 let day = today.getDay();
 let monthDay = today.getDate();
@@ -45,13 +50,10 @@ document.getElementById('date').innerHTML = `
 
 
 // Get Time
-let hour = String(today.getHours() ).padStart(2, '0');
-let minute = today.getMinutes();
-let second = today.getSeconds();
+let hour = String((today.getHours() - 12) ).padStart(2, '0');
+let minute = String(today.getMinutes()).padStart(2, '0');
+let second = String(today.getSeconds()).padStart(2, '0');
 
 // Display Time
 document.getElementById('time').innerHTML = `${hour}:${minute}:${second}`;
-
-// TEST
-// testOutput('', day);
 
