@@ -53,5 +53,5 @@ let second = today.getSeconds();
 document.getElementById('time').innerHTML = `${hour}:${minute}:${second}`;
 
 // TEST
-testOutput('what the hell', day);
+// testOutput('', day);
 
