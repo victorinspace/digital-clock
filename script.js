@@ -1,6 +1,6 @@
 // Work Items
 // - Include nd, rd, and th in date
-
+// - add clock ticking 
 
 // date format: Monday, August 12th 2021
 // time format: 03:30:09
@@ -34,9 +34,7 @@ let monthList = {
     '12': 'December'
 }
 
-
 let today = new Date();
-
 
 // Get Date
 let day = today.getDay();
@@ -48,12 +46,15 @@ let year = today.getFullYear();
 document.getElementById('date').innerHTML = `
     ${weekdayList[day]}, ${monthList[month]} ${monthDay} ${year}`;
 
-
 // Get Time
-let hour = String((today.getHours() - 12) ).padStart(2, '0');
+let hour = String((today.getHours() - 12)).padStart(2, '0');
 let minute = String(today.getMinutes()).padStart(2, '0');
 let second = String(today.getSeconds()).padStart(2, '0');
 
 // Display Time
-document.getElementById('time').innerHTML = `${hour}:${minute}:${second}`;
+document.getElementById('time').innerHTML = `
+    ${hour}${setInterval(function() {
+        let blink = 'funtest';
+        console.log(blink);
+    }, 1000)}${minute}:${second}`;
 
