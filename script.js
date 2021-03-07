@@ -45,46 +45,45 @@ const formatDayOfTheMonth = function(dayOfTheMonth) {
 let today = new Date();
 
 // ** Initializing & formatting the DATE
-let day = today.getDay();  
+let day = today.getDay() + 1;  
 const monthDay = today.getDate();
 const month = today.getMonth() + 1;
 const year = today.getFullYear();
-
-document.getElementById('date').innerHTML = `
-    ${weekdayList[day]}, ${monthList[month]} ${monthDay}${formatDayOfTheMonth(monthDay)} ${year}
-`;
+document.getElementById('date').innerHTML = 
+    `${weekdayList[day]}, ${monthList[month]} ${monthDay}${formatDayOfTheMonth(monthDay)} ${year}`;
 
 // ** Initializing & formatting the TIME
 let incrementerDevice = 0;
-(function() {
-	printAndFormatDate = setInterval(function () {
-	incrementerDevice++;
-    let today = new Date();
-    let hour = String(today.getHours()).padStart(2, "0");
-    let minute = String(today.getMinutes()).padStart(2, "0");
-    let second = String(today.getSeconds()).padStart(2, "0");
+(printAndFormatDate = function() {
+    setInterval(function () {
+        incrementerDevice++;
+        let today = new Date();
+        let hour = String(today.getHours()).padStart(2, "0");
+        let minute = String(today.getMinutes()).padStart(2, "0");
+        let second = String(today.getSeconds()).padStart(2, "0");
+        let earlyBirdOrMidnightOwl = '';
 
-    let zeroLeading = function(slotA) {
-        if (slotA == hour) {
-          if (slotA >= 13) {
-            slotA = slotA - 12;
-            slotA = `0${slotA}`;
-            return slotA;
-          }
+        const zeroLeading = function(timeEntry) {
+            if (timeEntry >= 13) {
+                timeEntry = timeEntry - 12;
+                timeEntry = `0${timeEntry}`;
+                earlyBirdOrMidnightOwl = 'AM';
+                return timeEntry;
+            } else {
+                earlyBirdOrMidnightOwl = "PM";
+                return timeEntry;
+            }
+        }
+
+        // Create 'ticker'
+        if (incrementerDevice % 2 == 0) {
+            document.getElementById("time").innerHTML = `
+                ${zeroLeading(hour)} ${minute} ${second} ${earlyBirdOrMidnightOwl}
+            `;
         } else {
-        return slotA;
-      }
-    }
-    
-    // Create 'ticker'
-    if (incrementerDevice % 2 == 0) {
-        document.getElementById("time").innerHTML = `
-        	${zeroLeading(hour)} ${minute} ${second}
-        `;
-    } else {
-        document.getElementById("time").innerHTML = `
-        	${zeroLeading(hour)}:${minute}:${second}
-        `;
-    }
-}, 1000);
+            document.getElementById("time").innerHTML = `
+                ${zeroLeading(hour)}:${minute}:${second} ${earlyBirdOrMidnightOwl}
+            `;
+        }
+    }, 1000);
 })();
