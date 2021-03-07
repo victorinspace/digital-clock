@@ -68,10 +68,6 @@ const intervalID = setInterval(function () {
       }
     }
     
-    testOutput("hour", zeroLeading(hour));
-    
-    
-    
     // Create 'ticker'
     if (num % 2 == 0) {
         document.getElementById("time").innerHTML = `
