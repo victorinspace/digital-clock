@@ -37,26 +37,50 @@ let monthList = {
 let today = new Date();
 
 // Get Date
-let day = today.getDay();
+let day = today.getDay();  
 let monthDay = today.getDate();
 let month = today.getMonth() + 1;
 let year = today.getFullYear();
 
 // Display Date
 document.getElementById('date').innerHTML = `
-    ${weekdayList[day]}, ${monthList[month]} ${monthDay} ${year}`;
+    ${weekdayList[day]}, ${monthList[month]} ${monthDay} ${year}`;    
 
-// Get Time
-let hour = String(today.getHours()).padStart(2, '0');
-let minute = String(today.getMinutes()).padStart(2, '0');
-let second = String(today.getSeconds()).padStart(2, '0');
+let num = 0;
+let colon = '';
+const intervalID = setInterval(function () {
+    // Get Time
+	num++;
+    let today = new Date();
+    let hour = String(today.getHours()).padStart(2, "0");
+    let minute = String(today.getMinutes()).padStart(2, "0");
+    let second = String(today.getSeconds()).padStart(2, "0");
 
-// Display Time
-// document.getElementById('time').innerHTML = `
-//     ${hour}${setInterval(function() {
-//         let blink = 'funtest';
-//         console.log(blink);
-//     }, 1000)}${minute}:${second}`;
+    let zeroLeading = function(slotA) {
+        if (slotA == hour) {
+          if (slotA >= 13) {
+            slotA = slotA - 12;
+            slotA = `0${slotA}`;
+            return slotA;
+          }
+        } else {
+        return slotA;
+      }
+    }
+    
+    testOutput("hour", zeroLeading(hour));
+    
+    
+    
+    // Create 'ticker'
+    if (num % 2 == 0) {
+        document.getElementById("time").innerHTML = `
+        	${zeroLeading(hour)} ${minute} ${second}
+        `;
+    } else {
+        document.getElementById("time").innerHTML = `
+        	${zeroLeading(hour)}:${minute}:${second}
+        `;
+    }
+}, 1000);
 
-document.getElementById("time").innerHTML = `
-    ${hour}:${minute}:${second}`;
