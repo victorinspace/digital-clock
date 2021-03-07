@@ -1,11 +1,4 @@
-// date format: Monday, August 12th 2021
-// time format: 03:30:09
-
-let testOutput = function(name, out) {
-    console.log(`${name}: ${out}`);
-}
-
-let weekdayList = {
+const weekdayList = {
     '1': 'Monday',
     '2': 'Tuesday',
     '3': 'Wednesday',
@@ -15,7 +8,7 @@ let weekdayList = {
     '7': 'Sunday'
 }
 
-let monthList = {
+const monthList = {
     '1': 'January',
     '2': 'February',
     '3': 'March',
@@ -30,45 +23,42 @@ let monthList = {
     '12': 'December'
 }
 
-let flourish = {
+const dayOfTheMonthFormat = {
 	'1': 'st',
 	'2': 'nd',
 	'3': 'rd',
 	'4': 'th'
 }
 
-let today = new Date();
-
-// Get Date
-let day = today.getDay();  
-let monthDay = today.getDate();
-let month = today.getMonth() + 1;
-let year = today.getFullYear();
-
-testOutput('type', typeof monthDay);
-
-let addFlourish = function(x) {
-	if (x === 1) {
-		return x + flourish[1];
-	} else if (x == 2) {
-        return `${flourish[2]}`;
-    } else if (x == 3) {
-        return `${flourish[3]}`;
+const formatDayOfTheMonth = function(dayOfTheMonth) {
+	if (dayOfTheMonth === 1) {
+		return dayOfTheMonth + dayOfTheMonthFormat[1];
+	} else if (dayOfTheMonth == 2) {
+        return `${dayOfTheMonthFormat[2]}`;
+    } else if (dayOfTheMonth == 3) {
+        return `${dayOfTheMonthFormat[3]}`;
     } else {
-        return `${flourish[4]}`;
+        return `${dayOfTheMonthFormat[4]}`;
     }
 }
 
-// Display Date
-document.getElementById('date').innerHTML = `
-    ${weekdayList[day]}, ${monthList[month]} ${monthDay}${addFlourish(monthDay)} ${year}
-`;    
+let today = new Date();
 
-let num = 0;
-let colon = '';
-const intervalID = setInterval(function () {
-    // Get Time
-	num++;
+// ** Initializing & formatting the DATE
+let day = today.getDay();  
+const monthDay = today.getDate();
+const month = today.getMonth() + 1;
+const year = today.getFullYear();
+
+document.getElementById('date').innerHTML = `
+    ${weekdayList[day]}, ${monthList[month]} ${monthDay}${formatDayOfTheMonth(monthDay)} ${year}
+`;
+
+// ** Initializing & formatting the TIME
+let incrementerDevice = 0;
+(function() {
+	printAndFormatDate = setInterval(function () {
+	incrementerDevice++;
     let today = new Date();
     let hour = String(today.getHours()).padStart(2, "0");
     let minute = String(today.getMinutes()).padStart(2, "0");
@@ -87,7 +77,7 @@ const intervalID = setInterval(function () {
     }
     
     // Create 'ticker'
-    if (num % 2 == 0) {
+    if (incrementerDevice % 2 == 0) {
         document.getElementById("time").innerHTML = `
         	${zeroLeading(hour)} ${minute} ${second}
         `;
@@ -97,4 +87,4 @@ const intervalID = setInterval(function () {
         `;
     }
 }, 1000);
-
+})();
