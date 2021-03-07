@@ -1,7 +1,3 @@
-// Work Items
-// - Include nd, rd, and th in date
-// - add clock ticking 
-
 // date format: Monday, August 12th 2021
 // time format: 03:30:09
 
@@ -34,6 +30,13 @@ let monthList = {
     '12': 'December'
 }
 
+let flourish = {
+	'1': 'st',
+	'2': 'nd',
+	'3': 'rd',
+	'4': 'th'
+}
+
 let today = new Date();
 
 // Get Date
@@ -42,9 +45,24 @@ let monthDay = today.getDate();
 let month = today.getMonth() + 1;
 let year = today.getFullYear();
 
+testOutput('type', typeof monthDay);
+
+let addFlourish = function(x) {
+	if (x === 1) {
+		return x + flourish[1];
+	} else if (x == 2) {
+        return `${flourish[2]}`;
+    } else if (x == 3) {
+        return `${flourish[3]}`;
+    } else {
+        return `${flourish[4]}`;
+    }
+}
+
 // Display Date
 document.getElementById('date').innerHTML = `
-    ${weekdayList[day]}, ${monthList[month]} ${monthDay} ${year}`;    
+    ${weekdayList[day]}, ${monthList[month]} ${monthDay}${addFlourish(monthDay)} ${year}
+`;    
 
 let num = 0;
 let colon = '';
